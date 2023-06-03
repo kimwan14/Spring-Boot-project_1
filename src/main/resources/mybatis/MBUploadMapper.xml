@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.co.kr.mapper.MBUploadMapper">
+
+	<!--select all-->
+	<select id="MBTIList" resultType="com.co.kr.domain.MBTIListDomain">
+	  SELECT mbti_bd_seq, mb_id, mbti_bd_title, mbti_bd_content, mbti_bd_create_at, mbti_bd_update_at
+	  FROM login_test.mbti_board order by mbti_bd_update_at desc
+	</select>
+
+</mapper>

@@ -1,28 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>Alpha by HTML5 UP</title>
-<meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, user-scalable=no" />
-<link rel="stylesheet" href="assets/css/main.css" />
-<script src="https://kit.fontawesome.com/95a02bd20d.js"></script>
-<link rel="stylesheet" href="css/demo1.css" />
-</head>
-<header id="header" class="alt" th:fragment="headerFragment">
-	<h1>
-		<a href="index.html">MBTI 게시판</a> by HTML5 UP
-	</h1>
-	<nav id="nav">
-		<ul>
-			<th:block th:if="${session.mbLevel}==3">
+<header th:fragment="headerFragment">
+	<div class="lnb">
+		<div class="logo">
+			<a th:href="@{bdList}"> <span>SpringBoot</span> <span>STUDY</span></a>
+		</div>
 
-				<li><a th:href="@{mbList(page=1)}">맴버정보</a></li>
-				<li><a th:href="@{bdList}">보드정보</a></li>
-				<li><a th:href="@{mbtiboard}">MBTI</a></li>
-				<li><a href="login" class="button">Sign Up</a></li>
+		<div class="useInfo" th:if="${session.id}">
+			<span th:text="${session.userAuth}"></span>
+		</div>
+
+		<ul class="nav">
+			<th:block>
+				<th:block th:if="${session.mbLevel}==3">
+					<li><a th:href="@{mbList(page=1)}">맴버정보</a></li>
+				</th:block>
+				<li><a th:href="@{bdList}">자유게시판</a></li>
+				<li><a th:href="@{mbtiboard}">MBTI 게시판</a></li>
 		</ul>
-	</nav>
+	</div>
 </header>
 </html>
-

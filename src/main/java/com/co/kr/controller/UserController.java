@@ -44,17 +44,18 @@ public class UserController {
 
 	@Autowired
 	private MBTIService MBTIService;
-	
+
 	// test1
 	@GetMapping("test1")
 	public String test1() {
 		return "test1.html";
 	}
+
 	// index(copy)
-		@GetMapping("index(copy)")
-		public String indexCopy() {
-			return "index(copy).html";
-		}
+	@GetMapping("index(copy)")
+	public String indexCopy() {
+		return "index(copy).html";
+	}
 
 	// about
 	@GetMapping("/about")
@@ -67,16 +68,22 @@ public class UserController {
 	public String login() {
 		return "login.html";
 	}
+
+	@GetMapping("mbtiP")
+	public String mbtiP() {
+		return "mbitP.html";
+	}
+
 	// 좌측 메뉴 클릭시 보드화면 이동 (로그인된 상태)
-		@RequestMapping(value = "mbtiboard")
-		public ModelAndView MBTIList() {
-			ModelAndView mav = new ModelAndView();
-			List<MBTIListDomain> items = MBTIService.MBTIList();
-			System.out.println("items ==> " + items);
-			mav.addObject("items", items);
-			mav.setViewName("mbti/mbtiboard.html");
-			return mav;
-		};
+	@RequestMapping(value = "mbtiboard")
+	public ModelAndView MBTIList() {
+		ModelAndView mav = new ModelAndView();
+		List<MBTIListDomain> items = MBTIService.MBTIList();
+		System.out.println("items ==> " + items);
+		mav.addObject("items", items);
+		mav.setViewName("mbti/mbtiboard.html");
+		return mav;
+	};
 
 	@RequestMapping(value = "board")
 	public ModelAndView login(LoginVO loginDTO, HttpServletRequest request, HttpServletResponse response)
@@ -260,70 +267,67 @@ public class UserController {
 	};
 
 	// 어드민의 멤버추가 & 회원가입
-		@PostMapping("create")
-		public ModelAndView create(LoginVO loginVO, HttpServletRequest request,HttpServletResponse response) throws IOException {
-			
-			ModelAndView mav = new ModelAndView();
-			
-			//session 처리 
-			HttpSession session = request.getSession();
-			
-			//페이지 초기화
-			String page = (String) session.getAttribute("page");
-			if(page == null)page = "1";
-			
-			// 중복체크
-			Map<String, String> map = new HashMap();
-			map.put("mbId", loginVO.getId());
-			map.put("mbPw", loginVO.getPw());
-			
-			
-			// 중복체크
-			int dupleCheck = userService.mbDuplicationCheck(map);
-			System.out.println(dupleCheck);
+	@PostMapping("create")
+	public ModelAndView create(LoginVO loginVO, HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
 
-			if(dupleCheck > 0) { // 가입되있으면  
-				String alertText = "중복이거나 유효하지 않은 접근입니다";
-				String redirectPath = "/main";
-				System.out.println(loginVO.getAdmin());
-				if(loginVO.getAdmin() != null) {
-					redirectPath = "/main/mbList?page="+page;
-				}
-				CommonUtils.redirect(alertText, redirectPath, response);
-			}else {
-				
-				//현재아이피 추출
-				String IP = CommonUtils.getClientIP(request);
-				
-				//전체 갯수
-				int totalcount = userService.mbGetAll();
-				
-				//db insert 준비
-				LoginDomain loginDomain = LoginDomain.builder()
-						.mbId(loginVO.getId())
-						.mbPw(loginVO.getPw())
-						.mbLevel((totalcount == 0) ? "3" : "2") // 최초가입자를 level 3 admin 부여
-						.mbIp(IP)
-						.mbUse("Y")
-						.build();
-				
-	       // 저장
-				userService.mbCreate(loginDomain);
-				
-				if(loginVO.getAdmin() == null) { // 'admin'들어있을때는 alert 스킵이다
-					// session 저장 
-					session.setAttribute("ip",IP);
-					session.setAttribute("id", loginDomain.getMbId());
-					session.setAttribute("mbLevel", (totalcount == 0) ? "3" : "2");   // 최초가입자를 level 3 admin 부여
-					mav.setViewName("redirect:/bdList");
-				}else { // admin일때
-					mav.setViewName("redirect:/mbList?page=1");
-				}
+		ModelAndView mav = new ModelAndView();
+
+		// session 처리
+		HttpSession session = request.getSession();
+
+		// 페이지 초기화
+		String page = (String) session.getAttribute("page");
+		if (page == null)
+			page = "1";
+
+		// 중복체크
+		Map<String, String> map = new HashMap();
+		map.put("mbId", loginVO.getId());
+		map.put("mbPw", loginVO.getPw());
+
+		// 중복체크
+		int dupleCheck = userService.mbDuplicationCheck(map);
+		System.out.println(dupleCheck);
+
+		if (dupleCheck > 0) { // 가입되있으면
+			String alertText = "중복이거나 유효하지 않은 접근입니다";
+			String redirectPath = "/main";
+			System.out.println(loginVO.getAdmin());
+			if (loginVO.getAdmin() != null) {
+				redirectPath = "/main/mbList?page=" + page;
 			}
-			
-			return mav;
+			CommonUtils.redirect(alertText, redirectPath, response);
+		} else {
 
-		};
+			// 현재아이피 추출
+			String IP = CommonUtils.getClientIP(request);
+
+			// 전체 갯수
+			int totalcount = userService.mbGetAll();
+
+			// db insert 준비
+			LoginDomain loginDomain = LoginDomain.builder().mbId(loginVO.getId()).mbPw(loginVO.getPw())
+					.mbLevel((totalcount == 0) ? "3" : "2") // 최초가입자를 level 3 admin 부여
+					.mbIp(IP).mbUse("Y").build();
+
+			// 저장
+			userService.mbCreate(loginDomain);
+
+			if (loginVO.getAdmin() == null) { // 'admin'들어있을때는 alert 스킵이다
+				// session 저장
+				session.setAttribute("ip", IP);
+				session.setAttribute("id", loginDomain.getMbId());
+				session.setAttribute("mbLevel", (totalcount == 0) ? "3" : "2"); // 최초가입자를 level 3 admin 부여
+				mav.setViewName("redirect:/bdList");
+			} else { // admin일때
+				mav.setViewName("redirect:/mbList?page=1");
+			}
+		}
+
+		return mav;
+
+	};
 
 	// 회원가입 화면
 	@GetMapping("signin")

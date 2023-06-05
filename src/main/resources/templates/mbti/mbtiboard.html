@@ -1,27 +1,174 @@
-<!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net/nz/thymeleaf/layout"
-	layout:decorate="~{layouts/layout}">
 
-<th:block layout:fragment="css"></th:block>
-<th:block layout:fragment="script">
-	<script type="text/javascript">
-		history.pushState(null, null, location.href);
-		window.onpopstate = function() {
-			history.go(1);
-		}
-	</script>
-</th:block>
-
+<!DOCTYPE HTML>
+<!--
+	Alpha by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
 <head>
-<title>보드정보</title>
+<title>Elements - Alpha by HTML5 UP</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="assets/css/main.css" />
 </head>
+<body class="is-preload">
+	<div id="page-wrapper">
 
-<div th:if=${session.id} layout:fragment="content">
-	<div class="container">
-		<th:block th:include="mbti/clause.html"></th:block>
-		<th:block th:include="mbti/list.html"></th:block>
-	</div>
-</div>
+		<!-- Header -->
+		<header id="header">
+			<h1>
+				<a href="index.html">Alpha</a> by HTML5 UP
+			</h1>
+			<nav id="nav">
+				<ul>
+					<li><a href="test1">Home</a></li>
+					<th:block th:if="${session.mbLevel}==3">
+						<li><a th:href="@{mbList(page=1)}">맴버정보</a></li>
+					</th:block>
+					<li><a th:href="@{bdList}">자유게시판</a></li>
+					<li><a th:href="@{ImageList}">MBTI 게시판</a></li>
 
+				</ul>
+			</nav>
+		</header>
+
+		<!-- Main -->
+		<section id="main" class="container">
+			<header>
+				<h2>MBTI 게시판</h2>
+				<p>여러분은 어떤 성향이신가요?</p>
+			</header>
+			<section class="box">
+				<div class="userInfo" th:if=${session.id}>
+					<span th:text="${session.id}"></span><span> 님 / </span> <span
+						th:text="${session.mbLevel}"></span><span> 레벨</span>
+					<button type="button">
+						<a th:href="@{test1}" style="color: #fff">로그아웃</a>
+					</button>
+				</div>
+
+				<div class="title" style="color: #00a2be">MBTI 게시판</div>
+				<form role="form" action="upload" method="post"
+					enctype="multipart/form-data">
+					<div class="section form">
+						<table>
+							<colgroup>
+								<col style="width: 10%" />
+								<col style="width: 90%" />
+							</colgroup>
+							<tbody>
+								<tr>
+									<th>제목</th>
+									<td><input type="hidden" name="seq" placeholder="글번호"
+										required /> <input type="text" name="title" placeholder="제목"
+										required /></td>
+								</tr>
+
+								<tr>
+									<th>내용</th>
+									<td><textarea colspan="2" id="story" name="content"
+											placeholder="내용을 적어주세요." rows="5" cols="200" required></textarea>
+									</td>
+								</tr>
+								<tr>
+									<th><label for="file">첨부파일</label></th>
+									<td><input type="file" id="file" name="files" multiple />
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="button">
+							<button type="submit" style="margin-right: 11px">글쓰기</button>
+						</div>
+					</div>
+
+				</form>
+			</section>
+			<section class="box">
+				<div class="row">
+					<div class="col-12">
+
+						<!-- Text -->
+						<section class="box">
+
+							<div class="table-wrapper">
+								<table class="alt">
+									<th:block th:if="${items}">
+										<colgroup>
+											<col style="width: 5%" />
+											<col style="width: 50%" />
+											<col style="width: 10%" />
+											<col style="width: 15%" />
+											<col style="width: 15%" />
+										</colgroup>
+										<thead>
+											<tr>
+												<th>글번호</th>
+												<th>제목</th>
+												<th>아이디</th>
+												<th>등록일</th>
+												<th>수정일</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="item : ${items}">
+												<td th:text="${item.mbti_bdSeq}"></td>
+												<td><a th:text="${item.mbti_bdTitle}"
+													th:href="@{/detail2(mbti_bdSeq = ${item.mbti_bdSeq})}"></a></td>
+												<td th:text="${item.mbId}"></td>
+												<td th:text="${item.mbti_bdCreateAt}"></td>
+												<td th:text="${item.mbti_bdUpdateAt}"></td>
+											</tr>
+									</th:block>
+
+									</tbody>
+								</table>
+
+								<th:block th:if="${detail2}">
+									<h1 style="padding: 30px 0;" th:text="${detail2.mbti_bdTitle}"></h1>
+
+									<div style="text-align: right;">
+										<span style="color: #00a2be;">글번호 </span> <span
+											th:text="${detail2.mbti_bdSeq}"></span> <span
+											style="color: #00a2be"> | </span> <span
+											style="color: #00a2be">글쓴이 </span> <span
+											th:text="${detail2.mbId}"></span> <span
+											style="color: #00a2be"> | </span> <span
+											th:text="${detail2.mbti_bdCreateAt}"></span> <span
+											style="color: #00a2be"> | </span> <span
+											th:text="${detail2.mbti_bdUpdateAt}"></span>
+									</div>
+
+									<div>
+										<p style="padding: 30px 0;" th:text="${detail2.bdContent}"></p>
+										<ul th:if="${files}" th:each="file : ${files}"
+											style="display: inline-block; margin-bottom: 5px;">
+											<li><img id="imgId" th:src="@{${file.upNewFileName}}"
+												alt="첨부이미지" height="280" /></li>
+										</ul>
+									</div>
+
+									<div style="padding: 30px 0; text-align: right;">
+										<th:block th:if="${detail2.mbId == session.id}">
+											<a th:href="@{/edit(mbti_bdSeq = ${detail2.mbti_bdSeq})}"><button>수정</button></a>
+											<a th:href="@{/remove(mbti_bdSeq = ${detail2.mbti_bdSeq})}"><button>삭제</button></a>
+										</th:block>
+										<a th:href="@{mbtiboard}"><button
+												style="background-color: #00a2be; color: white; margin-left: 20px">목록으로</button></a>
+									</div>
+
+								</th:block>
+							</div>
+						</section>
+						<!-- Scripts -->
+						<script src="assets/js/jquery.min.js"></script>
+						<script src="assets/js/jquery.dropotron.min.js"></script>
+						<script src="assets/js/jquery.scrollex.min.js"></script>
+						<script src="assets/js/browser.min.js"></script>
+						<script src="assets/js/breakpoints.min.js"></script>
+						<script src="assets/js/util.js"></script>
+						<script src="assets/js/main.js"></script>
+</body>
 </html>

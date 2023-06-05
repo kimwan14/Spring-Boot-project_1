@@ -62,16 +62,19 @@ public class UserController {
 	public String about() {
 		return "about.html";
 	}
-
+	@GetMapping("qwer")
+	public String qwer() {
+		return "mbti/qwer.html";
+	}
 	// about
 	@GetMapping("/login")
 	public String login() {
 		return "login.html";
 	}
 
-	@GetMapping("mbtiP")
-	public String mbtiP() {
-		return "mbitP.html";
+	@GetMapping("ImageList")
+	public String ImageList() {
+		return "mbti/ImageList.html";
 	}
 
 	// 좌측 메뉴 클릭시 보드화면 이동 (로그인된 상태)

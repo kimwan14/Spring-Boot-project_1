@@ -29,7 +29,7 @@ import com.co.kr.domain.MBTIListDomain;
 import com.co.kr.exception.RequestException;
 import com.co.kr.mapper.MBTIUploadMapper;
 import com.co.kr.util.CommonUtils;
-import com.co.kr.vo.FileListVO;
+import com.co.kr.vo.MBTIListVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,16 +48,16 @@ public class MBTIUploadServicelmple implements MBTIUploadService {
 	}
 
 	@Override
-	public int MBTIfileProcess(FileListVO fileListVO, MultipartHttpServletRequest request, HttpServletRequest httpReq) {
+	public int MBTIfileProcess(MBTIListVO mbtiListVO, MultipartHttpServletRequest request, HttpServletRequest httpReq) {
 		// session 생성
 		HttpSession session = httpReq.getSession();
 
 		// content domain 생성
 		MBTIContentDomain mbtiContentDomain = MBTIContentDomain.builder().mbId(session.getAttribute("id").toString())
-				.mbti_bd_Title(fileListVO.getTitle()).mbti_bd_Content(fileListVO.getContent()).build();
+				.mbti_bd_Title(mbtiListVO.getMbti_title()).mbti_bd_Content(mbtiListVO.getMbti_content()).build();
 
-		if (fileListVO.getIsEdit() != null) {
-			mbtiContentDomain.setMbti_bdSeq(Integer.parseInt(fileListVO.getSeq()));
+		if (mbtiListVO.getMbti_isEdit() != null) {
+			mbtiContentDomain.setMbti_bdSeq(Integer.parseInt(mbtiListVO.getMbti_seq()));
 			System.out.println("수정업데이트");
 			// db 업데이트
 			mbtiuploadMapper.MBTIContentUpdate(mbtiContentDomain);
@@ -76,7 +76,7 @@ public class MBTIUploadServicelmple implements MBTIUploadService {
 		List<MultipartFile> multipartFiles = request.getFiles("files");
 
 		// 게시글 수정시 파일관련 물리저장 파일, db 데이터 삭제
-		if (fileListVO.getIsEdit() != null) { // 수정시
+		if (mbtiListVO.getMbti_isEdit() != null) { // 수정시
 
 			List<MBTIFileDomain> fileList = null;
 

@@ -9,11 +9,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.co.kr.domain.MBTIFileDomain;
 import com.co.kr.domain.MBTIListDomain;
-import com.co.kr.vo.FileListVO;
+import com.co.kr.vo.MBTIListVO;
 
 public interface MBTIUploadService {
 	// 인서트
-		public int MBTIfileProcess(FileListVO fileListVO, MultipartHttpServletRequest request, HttpServletRequest httpReq);
+		public int MBTIfileProcess(MBTIListVO mbtiListVO, MultipartHttpServletRequest request, HttpServletRequest httpReq);
 
 		// 전체 리스트 조회 // 지난시간 작성
 		public List<MBTIListDomain> MBTIList();

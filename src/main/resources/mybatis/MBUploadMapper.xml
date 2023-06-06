@@ -48,8 +48,8 @@
 		)
 		VALUES (
 		#{mbId},
-		#{mbti_Title},
-		#{mbti_Content}
+		#{mbti_bd_Title},
+		#{mbti_bd_Content}
 		)
 	</insert>
 
@@ -67,10 +67,10 @@
 		VALUES (
 		#{mbti_bdSeq},
 		#{mbId},
-		#{mbti_upOriginalFileName},
-		#{mbti_upNewFileName},
-		#{mbti_upFilePath},
-		#{mbti_upFileSize}
+		#{mbti_bd_upOriginalFileName},
+		#{mbti_bd_upNewFileName},
+		#{mbti_bd_upFilePath},
+		#{mbti_bd_upFileSize}
 		)
 	</insert>
 
@@ -93,10 +93,10 @@
 		UPDATE login_test.mbti_files SET
 		mbti_bd_seq=#{mbti_bdSeq},
 		mb_id=#{mbId},
-		mbti_up_original_file_name=#{mbti_upOriginalFileName},
-		mbti_up_new_file_name=#{mbti_upNewFileName},
-		mbti_up_file_path=#{mbti_upFilePath},
-		mbti_up_file_size=#{mbti_upFileSize}
+		mbti_up_original_file_name=#{mbti_bd_upOriginalFileName},
+		mbti_up_new_file_name=#{mbti_bd_upNewFileName},
+		mbti_up_file_path=#{mbti_bd_upFilePath},
+		mbti_up_file_size=#{mbti_bd_upFileSize}
 		WHERE mbti_bd_seq=#{mbti_bdSeq}
 	</update>
 
@@ -110,7 +110,7 @@
 		parameterType="com.co.kr.domain.MBTIFileDomain">
 		DELETE FROM login_test.mbti_files WHERE
 		mbti_up_new_file_name =
-		#{mbti_upNewFileName}
+		#{mbti_bd_upNewFileName}
 	</delete>
 
 

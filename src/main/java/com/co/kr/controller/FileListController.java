@@ -48,7 +48,7 @@ public class FileListController {
 		fileListVO.setTitle(""); // 초기화
 
 		// 화면에서 넘어올때는 bdSeq String이라 string으로 변환해서 넣어즘
-		mav = bdSelectOneCall(fileListVO, String.valueOf(bdSeq),request);
+		mav = bdSelectOneCall(fileListVO, String.valueOf(bdSeq), request);
 		mav.setViewName("board/boardList.html");
 		return mav;
 
@@ -65,17 +65,7 @@ public class FileListController {
 		return mav;
 	}
 
-
-	// detail
-	@GetMapping("detail2")
-	public ModelAndView mbti_bdDetail(@ModelAttribute("fileListVO") FileListVO fileListVO,
-			@RequestParam("mbti_bdSeq") String mbti_bdSeq, HttpServletRequest request) throws IOException {
-		ModelAndView mav = new ModelAndView();
-		// 하나파일 가져오기
-		mav = bdSelectOneCall(fileListVO, mbti_bdSeq, request);
-		mav.setViewName("mbti/mbtiboard.html");
-		return mav;
-	}
+	
 
 	@GetMapping("edit")
 	public ModelAndView edit(FileListVO fileListVO, @RequestParam("bdSeq") String bdSeq, HttpServletRequest request)
@@ -171,28 +161,30 @@ public class FileListController {
 		mav.addObject("items", items);
 		return mav;
 	}
-	//리스트 하나 가져오기 따로 함수뺌
-		public ModelAndView bdSelectOneCall(@ModelAttribute("fileListVO") FileListVO fileListVO, String bdSeq, HttpServletRequest request) {
-			ModelAndView mav = new ModelAndView();
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			HttpSession session = request.getSession();
-			
-			map.put("bdSeq", Integer.parseInt(bdSeq));
-			BoardListDomain boardListDomain =uploadService.boardSelectOne(map);
-			System.out.println("boardListDomain"+boardListDomain);
-			List<BoardFileDomain> fileList =  uploadService.boardSelectOneFile(map);
-			
-			for (BoardFileDomain list : fileList) {
-				String path = list.getUpFilePath().replaceAll("\\\\", "/");
-				list.setUpFilePath(path);
-			}
-			mav.addObject("detail", boardListDomain);
-			mav.addObject("files", fileList);
 
-			//삭제시 사용할 용도
-			session.setAttribute("files", fileList);
+	// 리스트 하나 가져오기 따로 함수뺌
+	public ModelAndView bdSelectOneCall(@ModelAttribute("fileListVO") FileListVO fileListVO, String bdSeq,
+			HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		HttpSession session = request.getSession();
 
-			return mav;
+		map.put("bdSeq", Integer.parseInt(bdSeq));
+		BoardListDomain boardListDomain = uploadService.boardSelectOne(map);
+		System.out.println("boardListDomain" + boardListDomain);
+		List<BoardFileDomain> fileList = uploadService.boardSelectOneFile(map);
+
+		for (BoardFileDomain list : fileList) {
+			String path = list.getUpFilePath().replaceAll("\\\\", "/");
+			list.setUpFilePath(path);
 		}
+		mav.addObject("detail", boardListDomain);
+		mav.addObject("files", fileList);
+
+		// 삭제시 사용할 용도
+		session.setAttribute("files", fileList);
+
+		return mav;
+	}
 
 }

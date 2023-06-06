@@ -1,12 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
                         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.co.kr.mapper.MBUploadMapper">
+<mapper namespace="com.co.kr.mapper.MBTIUploadMapper">
 
-	<!--select all-->
-	<select id="MBTIList" resultType="com.co.kr.domain.MBTIListDomain">
-	  SELECT mbti_bd_seq, mb_id, mbti_bd_title, mbti_bd_content, mbti_bd_create_at, mbti_bd_update_at
-	  FROM login_test.mbti_board order by mbti_bd_update_at desc
+	<!--select all -->
+	<select id="MBTIList"
+		resultType="com.co.kr.domain.MBTIListDomain">
+		SELECT mbti_bd_seq, mb_id, mbti_bd_title, mbti_bd_content,
+		mbti_bd_create_at, mbti_bd_update_at
+		FROM login_test.mbti_board order
+		by mbti_bd_update_at desc
 	</select>
+
+	<!-- content -->
+	<select id="MBTISelectOne"
+		resultType="com.co.kr.domain.MBTIListDomain" parameterType="map">
+		SELECT
+		mbti_bd_seq, mb_id, mbti_bd_title, mbti_bd_content, mbti_bd_create_at,
+		mbti_bd_update_at
+		FROM
+		login_test.mbti_board where mbti_bd_seq =
+		#{mbti_bdSeq}
+	</select>
+
+	<!-- file -->
+	<select id="MBTISelectOneFile"
+		resultType="com.co.kr.domain.MBTIFileDomain" parameterType="map">
+		SELECT
+		mbti_bd_seq, mb_id, mbti_up_original_file_name, mbti_up_new_file_name,
+		mbti_up_file_path,
+		mbti_up_file_size
+		FROM login_test.mbti_board where
+		mbti_bd_seq = #{mbti_bdSeq}
+	</select>
+
+	<!-- content insert -->
+	<insert id="MBTIcontentUpload"
+		parameterType="com.co.kr.domain.MBTIContentDomain"
+		useGeneratedKeys="true" keyProperty="mbti_bdSeq"
+		keyColumn="mbti_bd_seq">
+
+		INSERT INTO
+		login_test.mbti_board (
+		mb_id,
+		mbti_title,
+		mbti_content
+		)
+		VALUES (
+		#{mbId},
+		#{mbti_Title},
+		#{mbti_Content}
+		)
+	</insert>
+
+	<!-- file insert -->
+	<insert id="MBTIfileUpload"
+		parameterType="com.co.kr.domain.MBTIFileDomain">
+		INSERT INTO login_test.mbti_files (
+		mbti_bd_seq,
+		mb_id,
+		mbti_up_original_file_name,
+		mbti_up_new_file_name,
+		mbti_up_file_path,
+		mbti_up_file_size
+		)
+		VALUES (
+		#{mbti_bdSeq},
+		#{mbId},
+		#{mbti_upOriginalFileName},
+		#{mbti_upNewFileName},
+		#{mbti_upFilePath},
+		#{mbti_upFileSize}
+		)
+	</insert>
+
+	<!-- Content update -->
+	<update id="MBTIContentUpdate"
+		parameterType="com.co.kr.domain.MBTIContentDomain">
+		UPDATE login_test.mbti_board SET
+		mbti_bd_seq=#{bdSeq},
+		mb_id=#{mbId},
+		mbti_bd_title=#{mbti_bdTitle},
+		mbti_bd_content=#{mbti_bdContent},
+		mbti_bd_update_at=now()
+		WHERE
+		mbti_bd_seq=#{mbti_bdSeq}
+	</update>
+
+	<!-- file update -->
+	<update id="MBTIFileUpdate"
+		parameterType="com.co.kr.domain.MBTIFileDomain">
+		UPDATE login_test.mbti_files SET
+		mbti_bd_seq=#{mbti_bdSeq},
+		mb_id=#{mbId},
+		mbti_up_original_file_name=#{mbti_upOriginalFileName},
+		mbti_up_new_file_name=#{mbti_upNewFileName},
+		mbti_up_file_path=#{mbti_upFilePath},
+		mbti_up_file_size=#{mbti_upFileSize}
+		WHERE mbti_bd_seq=#{mbti_bdSeq}
+	</update>
+
+	<!-- Content delete -->
+	<delete id="MBTIContentRemove" parameterType="hashMap">
+		DELETE FROM
+		login_test.mbti_board WHERE mbti_bd_seq=#{mbti_bdSeq}
+	</delete>
+	<!-- file delete -->
+	<delete id="MBTIFileRemove"
+		parameterType="com.co.kr.domain.MBTIFileDomain">
+		DELETE FROM login_test.mbti_files WHERE
+		mbti_up_new_file_name =
+		#{mbti_upNewFileName}
+	</delete>
+
 
 </mapper>

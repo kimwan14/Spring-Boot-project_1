@@ -22,7 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.co.kr.domain.BoardListDomain;
 import com.co.kr.domain.LoginDomain;
 import com.co.kr.domain.MBTIListDomain;
-import com.co.kr.service.MBTIService;
+import com.co.kr.service.MBTIUploadService;
 import com.co.kr.service.UploadService;
 import com.co.kr.service.UserService;
 import com.co.kr.util.CommonUtils;
@@ -43,7 +43,7 @@ public class UserController {
 	private UploadService uploadService;
 
 	@Autowired
-	private MBTIService MBTIService;
+	private MBTIUploadService MBTIUploadService;
 
 	// test1
 	@GetMapping("test1")
@@ -62,10 +62,12 @@ public class UserController {
 	public String about() {
 		return "about.html";
 	}
+
 	@GetMapping("qwer")
 	public String qwer() {
 		return "mbti/qwer.html";
 	}
+
 	// about
 	@GetMapping("/login")
 	public String login() {
@@ -81,7 +83,7 @@ public class UserController {
 	@RequestMapping(value = "mbtiboard")
 	public ModelAndView MBTIList() {
 		ModelAndView mav = new ModelAndView();
-		List<MBTIListDomain> items = MBTIService.MBTIList();
+		List<MBTIListDomain> items = MBTIUploadService.MBTIList();
 		System.out.println("items ==> " + items);
 		mav.addObject("items", items);
 		mav.setViewName("mbti/mbtiboard.html");

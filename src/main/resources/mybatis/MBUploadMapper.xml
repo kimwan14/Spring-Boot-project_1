@@ -43,8 +43,8 @@
 		INSERT INTO
 		login_test.mbti_board (
 		mb_id,
-		mbti_title,
-		mbti_content
+		mbti_bd_title,
+		mbti_bd_content
 		)
 		VALUES (
 		#{mbId},

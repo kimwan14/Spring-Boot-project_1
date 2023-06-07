@@ -8,6 +8,7 @@ public class MBTIListDomain {
 
 	private String mbti_bdSeq;
 	private String mbId;
+	private String mbti_bdList;
 	private String mbti_bdTitle;
 	private String mbti_bdContent;
 	private String mbti_bdCreateAt;

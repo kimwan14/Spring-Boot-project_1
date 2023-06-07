@@ -54,7 +54,7 @@ public class MBTIUploadServicelmple implements MBTIUploadService {
 
 		// content domain 생성
 		MBTIContentDomain mbtiContentDomain = MBTIContentDomain.builder().mbId(session.getAttribute("id").toString())
-				.mbti_bd_Title(mbtiListVO.getMbti_title()).mbti_bd_Content(mbtiListVO.getMbti_content()).build();
+				.mbti_bd_list(mbtiListVO.getMbti_list()).mbti_bd_Title(mbtiListVO.getMbti_title()).mbti_bd_Content(mbtiListVO.getMbti_content()).build();
 
 		if (mbtiListVO.getMbti_isEdit() != null) {
 			mbtiContentDomain.setMbti_bdSeq(Integer.parseInt(mbtiListVO.getMbti_seq()));

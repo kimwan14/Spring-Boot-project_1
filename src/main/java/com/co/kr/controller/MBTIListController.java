@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.Document;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,7 +46,11 @@ public class MBTIListController {
 	public ModelAndView MBTIupload(MBTIListVO mbtiListVO, MultipartHttpServletRequest request,
 			HttpServletRequest httpReq) throws IOException, ParseException {
 		ModelAndView mav = new ModelAndView();
+
 		int mbti_Seq = mbtiUploadService.MBTIfileProcess(mbtiListVO, request, httpReq);
+
+		String selectedValue = request.getParameter("mbti_list");
+		mbtiListVO.setMbti_list(selectedValue); // 선택된 MBTI 유형 설정
 		mbtiListVO.setMbti_content(""); // 초기화
 		mbtiListVO.setMbti_title(""); // 초기화;
 
@@ -182,7 +187,7 @@ public class MBTIListController {
 
 		mav.addObject("detail2", mbtiListDomain);
 		mav.addObject("mbti_files", mbtifilelist);
-		//삭제시 사용할 용도
+		// 삭제시 사용할 용도
 		session.setAttribute("files", mbtifilelist);
 
 		return mav;

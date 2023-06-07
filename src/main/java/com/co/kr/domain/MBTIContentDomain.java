@@ -9,6 +9,7 @@ public class MBTIContentDomain {
 
 	private Integer mbti_bdSeq;
 	private String mbId;
+	private String mbti_bd_list;
 	private String mbti_bd_Title;
 	private String mbti_bd_Content;
 

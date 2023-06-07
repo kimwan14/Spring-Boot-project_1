@@ -59,6 +59,29 @@
 							</colgroup>
 							<tbody>
 								<tr>
+									MBTI
+
+									<select name="mbti_list" id="MBTI">
+										<option value="ISTJ">ISTJ</option>
+										<option value="ISFJ">ISFJ</option>
+										<option value="INFJ">INFJ</option>
+										<option value="INTJ">INTJ</option>
+										<option value="ISTP">ISTP</option>
+										<option value="ISFP">ISFP</option>
+										<option value="INFP">INFP</option>
+										<option value="INTP">INTP</option>
+										<option value="ESTP">ESTP</option>
+										<option value="ESTP">ESTP</option>
+										<option value="ESTP">ESTP</option>
+										<option value="ENTP">ENTP</option>
+										<option value="ESTJ">ESTJ</option>
+										<option value="ESFJ">ESFJ</option>
+										<option value="ESFJ">ESFJ</option>
+										<option value="ENTJ">ENTJ</option>
+									</select>
+								</tr>
+
+								<tr>
 									<th>제목</th>
 									<td><input type="hidden" name="mbti_seq" placeholder="글번호"
 										required /> <input type="text" name="mbti_title"
@@ -96,8 +119,9 @@
 								<table class="alt">
 									<th:block th:if="${items}">
 										<colgroup>
-											<col style="width: 15%" />
-											<col style="width: 40%" />
+											<col style="width: 10%" />
+											<col style="width: 10%" />
+											<col style="width: 35%" />
 											<col style="width: 10%" />
 											<col style="width: 15%" />
 											<col style="width: 15%" />
@@ -105,6 +129,7 @@
 										<thead>
 											<tr>
 												<th>글번호</th>
+												<th>MBTI</th>
 												<th>제목</th>
 												<th>아이디</th>
 												<th>등록일</th>
@@ -114,6 +139,7 @@
 										<tbody>
 											<tr th:each="item : ${items}">
 												<td th:text="${item.mbti_bdSeq}"></td>
+												<td th:text="${item.mbti_bdList}"></td>
 												<td><a th:text="${item.mbti_bdTitle}"
 													th:href="@{/detail2(mbti_bdSeq = ${item.mbti_bdSeq})}"></a></td>
 												<td th:text="${item.mbId}"></td>

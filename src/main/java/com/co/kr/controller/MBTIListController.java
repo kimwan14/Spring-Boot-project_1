@@ -114,6 +114,7 @@ public class MBTIListController {
 
 		mav = MBTISelectOneCall(mbtiListVO, mbtiListVO.getMbti_seq(), request);
 		mbtiListVO.setMbti_content(""); // 초기화
+		mbtiListVO.setMbti_list(""); // 초기화
 		mbtiListVO.setMbti_title(""); // 초기화
 		mav.setViewName("mbti/mbtiboard.html");
 		return mav;

@@ -19,13 +19,13 @@
 		<!-- Header -->
 		<header id="header">
 			<h1>
-				<a href="index.html">Alpha</a> by HTML5 UP
+				<a href="index.html">메인화면</a> 
 			</h1>
 			<nav id="nav">
 				<ul>
 					<li><a href="test1">Home</a></li>
 					<th:block th:if="${session.mbLevel}==3">
-						<li><a th:href="@{mbList(page=1)}">맴버정보</a></li>
+						<li><a th:href="@{mbList(page=1)}">사용자정보</a></li>
 					</th:block>
 					<li><a th:href="@{bdList}">자유게시판</a></li>
 					<li><a th:href="@{ImageList}">MBTI 게시판</a></li>
@@ -38,7 +38,7 @@
 		<section id="main" class="container">
 			<header>
 				<h2>MBTI 게시판</h2>
-				<p class="title" style="color: #00a2be">여러분은 어떤 성향이신가요?</p>
+				<p class="title" style="color: #ff7f00">여러분의 MBTI는 무엇인가요?</p>
 			</header>
 			<section class="box">
 				<div class="userInfo" th:if=${session.id}>
@@ -61,6 +61,7 @@
 								<tr>
 									MBTI
 									<select name="mbti_list" id="MBTI">
+									    <option value="select">MBTI를 선택해주세요</option>
 										<option value="ISTJ">ISTJ</option>
 										<option value="ISFJ">ISFJ</option>
 										<option value="INFJ">INFJ</option>
@@ -126,7 +127,7 @@
 										<thead>
 											<tr>
 												<th>글번호</th>
-												<th>MBTI</th>
+												<th style="color: #008d62;">MBTI</th>
 												<th>제목</th>
 												<th>아이디</th>
 												<th>등록일</th>
@@ -136,7 +137,7 @@
 										<tbody>
 											<tr th:each="item : ${items}">
 												<td th:text="${item.mbti_bdSeq}"></td>
-												<td th:text="${item.mbti_bdList}"></td>
+												<td style="color: #008d62;" th:text="${item.mbti_bdList}"></td>
 												<td><a th:text="${item.mbti_bdTitle}"
 													th:href="@{/detail2(mbti_bdSeq = ${item.mbti_bdSeq})}"></a></td>
 												<td th:text="${item.mbId}"></td>
@@ -158,8 +159,8 @@
 											style="color: #00a2be">글쓴이 </span> <span
 											th:text="${detail2.mbId}"></span> <span
 											style="color: #00a2be"> | </span> <span style="color:#e69138">
-											MBTI</span><span th:text="${detail2.mbti_bdList}"></span> <span
-											style="color: #e69138"> | </span><span
+											MBTI </span><span th:text="${detail2.mbti_bdList}"></span> <span
+											style="color: #00a2be"> | </span><span
 											th:text="${detail2.mbti_bdCreateAt}"></span> <span
 											style="color: #00a2be"> | </span> <span
 											th:text="${detail2.mbti_bdUpdateAt}"></span>

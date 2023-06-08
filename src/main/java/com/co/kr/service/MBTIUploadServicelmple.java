@@ -73,7 +73,7 @@ public class MBTIUploadServicelmple implements MBTIUploadService {
 		String mbId = mbtiContentDomain.getMbId();
 
 		// 파일객체 담음
-		List<MultipartFile> multipartFiles = request.getFiles("files");
+		List<MultipartFile> multipartFiles = request.getFiles("mbti_files");
 
 		// 게시글 수정시 파일관련 물리저장 파일, db 데이터 삭제
 		if (mbtiListVO.getMbti_isEdit() != null) { // 수정시
@@ -84,9 +84,9 @@ public class MBTIUploadServicelmple implements MBTIUploadService {
 
 				if (!multipartFile.isEmpty()) { // 수정시 새로 파일 첨부될때 세션에 담긴 파일 지우기
 
-					if (session.getAttribute("files") != null) {
+					if (session.getAttribute("mbti_files") != null) {
 
-						fileList = (List<MBTIFileDomain>) session.getAttribute("files");
+						fileList = (List<MBTIFileDomain>) session.getAttribute("mbti_files");
 
 						for (MBTIFileDomain list : fileList) {
 							list.getMbti_bd_upFilePath();

@@ -87,8 +87,8 @@
 		mbti_bd_seq=#{mbti_bdSeq},
 		mb_id=#{mbId},
 		mbti_bd_list =#{mbti_bd_list},
-		mbti_bd_title=#{mbti_bdTitle},
-		mbti_bd_content=#{mbti_bdContent},
+		mbti_bd_title=#{mbti_bd_Title},
+		mbti_bd_content=#{mbti_bd_Content},
 		mbti_bd_update_at=now()
 		WHERE
 		mbti_bd_seq=#{mbti_bdSeq}

@@ -25,7 +25,7 @@
 				<ul>
 					<li><a href="test1">Home</a></li>
 					<th:block th:if="${session.mbLevel}==3">
-						<li><a th:href="@{mbList(page=1)}">맴버정보</a></li>
+						<li><a th:href="@{mbList(page=1)}">사용자정보</a></li>
 					</th:block>
 					<li><a th:href="@{bdList}">자유게시판</a></li>
 					<li><a th:href="@{ImageList}">MBTI 게시판</a></li>
@@ -38,7 +38,7 @@
 		<section id="main" class="container">
 			<header>
 				<h2>자유게시판</h2>
-				<p class="title" style="color: #00a2be">자유롭게 글을 적어보세요!</p>
+				<p class="title" style="color: #ff7f00">자유롭게 글을 적어보세요!</p>
 			</header>
 			<section class="box">
 				<div class="userInfo" th:if=${session.id}>

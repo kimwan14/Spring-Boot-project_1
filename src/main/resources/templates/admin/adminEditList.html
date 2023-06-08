@@ -43,12 +43,12 @@
 				<div class="userInfo" th:if=${session.id}>
 					<span th:text="${session.id}"></span><span> 님 / </span> <span
 						th:text="${session.mbLevel}"></span><span> 레벨</span>
-					<button type="button">
+					<button type="button" class="button special small">
 						<a th:href="@{logout}" style="color: #fff">로그아웃</a>
 					</button>
 				</div>
 
-				<div class="title" style="color: #00a2be">사용자 수정</div>
+				<div class="title" style="color: #00a2be">멤버 수정</div>
 
 				<form role="form" action="update" method="post">
 					<div class="section form">
@@ -74,9 +74,7 @@
 								</tr>
 							</tbody>
 						</table>
-						<div class="button">
-							<button type="submit" style="margin-right: 11px">멤버 수정</button>
-						</div>
+						<button class= "button" type="submit" style="margin-right: 11px">멤버 수정</button>
 					</div>
 
 				</form>
@@ -124,8 +122,8 @@
 											<td th:text="${item.mbUpdateAt}"></td>
 											<td
 												style="display: flex; align-items: center; justify-content: center">
-												<a th:href="@{/modify/{mbSeq}(mbSeq = ${item.mbSeq})}"><button>수정</button></a>
-												<a th:href="@{/remove/{mbSeq}(mbSeq = ${item.mbSeq})}"><button>삭제</button></a>
+												<a th:href="@{/modify/{mbSeq}(mbSeq = ${item.mbSeq})}"><button class="button special small">수정</button></a>
+												<a th:href="@{/remove/{mbSeq}(mbSeq = ${item.mbSeq})}"><button class="button special small">삭제</button></a>
 											</td>
 										</tr>
 										<tr th:unless=${itemsNotEmpty}>

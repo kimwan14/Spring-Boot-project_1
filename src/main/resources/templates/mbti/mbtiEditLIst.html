@@ -44,7 +44,7 @@
 				<div class="userInfo" th:if=${session.id}>
 					<span th:text="${session.id}"></span><span> 님 / </span> <span
 						th:text="${session.mbLevel}"></span><span> 레벨</span>
-					<button type="button">
+					<button type="button" class="button special small">
 						<a th:href="@{logout}" style="color: #fff">로그아웃</a>
 					</button>
 				</div>
@@ -104,9 +104,7 @@
 								</tr>
 							</tbody>
 						</table>
-						<div class="button">
-							<button type="submit" style="margin-right: 11px">내용수정</button>
-						</div>
+						<button type="submit" class="button" style="margin-right: 11px">내용수정</button>
 					</div>
 
 				</form>
@@ -179,12 +177,12 @@
 
 									<div style="padding: 30px 0; text-align: right;">
 										<th:block th:if="${detail2.mbId == session.id}">
-											<a th:href="@{/MBTIedit(mbti_bdSeq = ${detail2.mbti_bdSeq})}"><button>수정</button></a>
+											<a th:href="@{/MBTIedit(mbti_bdSeq = ${detail2.mbti_bdSeq})}"class="button special small"><button>수정</button></a>
 											<a
-												th:href="@{/MBTIremove(mbti_bdSeq = ${detail2.mbti_bdSeq})}"><button>삭제</button></a>
+												th:href="@{/MBTIremove(mbti_bdSeq = ${detail2.mbti_bdSeq})}"class="button special small"><button>삭제</button></a>
 										</th:block>
 										<a th:href="@{mbtiboard}"><button
-												style="background-color: #00a2be; color: white; margin-left: 20px">목록으로</button></a>
+												style="background-color: #00a2be; color: white; margin-left: 20px"class="button alt small">목록으로</button></a>
 									</div>
 
 								</th:block>

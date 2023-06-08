@@ -6,9 +6,11 @@
 	<!--select all -->
 	<select id="MBTIList"
 		resultType="com.co.kr.domain.MBTIListDomain">
-		SELECT mbti_bd_seq, mb_id, mbti_bd_list, mbti_bd_title, mbti_bd_content,
+		SELECT mbti_bd_seq, mb_id, mbti_bd_list, mbti_bd_title,
+		mbti_bd_content,
 		mbti_bd_create_at, mbti_bd_update_at
-		FROM login_test.mbti_board order
+		FROM
+		login_test.mbti_board order
 		by mbti_bd_update_at desc
 	</select>
 
@@ -16,10 +18,12 @@
 	<select id="MBTISelectOne"
 		resultType="com.co.kr.domain.MBTIListDomain" parameterType="map">
 		SELECT
-		mbti_bd_seq, mb_id, mbti_bd_list,mbti_bd_title, mbti_bd_content, mbti_bd_create_at,
+		mbti_bd_seq, mb_id, mbti_bd_list,mbti_bd_title, mbti_bd_content,
+		mbti_bd_create_at,
 		mbti_bd_update_at
 		FROM
-		login_test.mbti_board where mbti_bd_seq =
+		login_test.mbti_board where
+		mbti_bd_seq =
 		#{mbti_bdSeq}
 	</select>
 
@@ -30,7 +34,7 @@
 		mbti_bd_seq, mb_id, mbti_up_original_file_name, mbti_up_new_file_name,
 		mbti_up_file_path,
 		mbti_up_file_size
-		FROM login_test.mbti_board where
+		FROM login_test.mbti_files where
 		mbti_bd_seq = #{mbti_bdSeq}
 	</select>
 
@@ -108,6 +112,7 @@
 		DELETE FROM
 		login_test.mbti_board WHERE mbti_bd_seq=#{mbti_bdSeq}
 	</delete>
+
 	<!-- file delete -->
 	<delete id="MBTIFileRemove"
 		parameterType="com.co.kr.domain.MBTIFileDomain">

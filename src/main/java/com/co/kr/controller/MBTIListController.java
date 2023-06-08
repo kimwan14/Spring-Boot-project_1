@@ -49,8 +49,8 @@ public class MBTIListController {
 
 		int mbti_Seq = mbtiUploadService.MBTIfileProcess(mbtiListVO, request, httpReq);
 
-		String selectedValue = request.getParameter("mbti_list");
-		mbtiListVO.setMbti_list(selectedValue); // 선택된 MBTI 유형 설정
+		//String selectedValue = request.getParameter("mbti_list");
+		mbtiListVO.setMbti_list(""); // 선택된 MBTI 유형 설정
 		mbtiListVO.setMbti_content(""); // 초기화
 		mbtiListVO.setMbti_title(""); // 초기화;
 
@@ -74,7 +74,7 @@ public class MBTIListController {
 	}
 
 	@GetMapping("MBTIedit")
-	public ModelAndView edit(FileListVO fileListVO, @RequestParam("MBTI_bdSeq") String mbti_bdSeq,
+	public ModelAndView edit(MBTIListVO mbtiListVO, @RequestParam("mbti_bdSeq") String mbti_bdSeq,
 			HttpServletRequest request) throws IOException {
 		ModelAndView mav = new ModelAndView();
 
@@ -90,10 +90,11 @@ public class MBTIListController {
 			list.setMbti_bd_upFilePath(path);
 		}
 
-		fileListVO.setSeq(MBTIListDomain.getMbti_bdSeq());
-		fileListVO.setContent(MBTIListDomain.getMbti_bdContent());
-		fileListVO.setTitle(MBTIListDomain.getMbti_bdTitle());
-		fileListVO.setIsEdit("edit"); // upload 재활용하기위해서
+		mbtiListVO.setMbti_seq(MBTIListDomain.getMbti_bdSeq());
+		mbtiListVO.setMbti_list(MBTIListDomain.getMbti_bdList());
+		mbtiListVO.setMbti_content(MBTIListDomain.getMbti_bdContent());
+		mbtiListVO.setMbti_title(MBTIListDomain.getMbti_bdTitle());
+		mbtiListVO.setMbti_isEdit("edit"); // upload 재활용하기위해서
 
 		mav.addObject("detail", MBTIListDomain);
 		mav.addObject("files", MBTIfileList);
@@ -114,7 +115,7 @@ public class MBTIListController {
 		mav = MBTISelectOneCall(mbtiListVO, mbtiListVO.getMbti_seq(), request);
 		mbtiListVO.setMbti_content(""); // 초기화
 		mbtiListVO.setMbti_title(""); // 초기화
-		mav.setViewName("board/boardList.html");
+		mav.setViewName("mbti/mbtiboard.html");
 		return mav;
 	}
 

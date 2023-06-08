@@ -2,34 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
                         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.co.kr.mapper.UploadMapper">
+	<!--select all -->
+	<select id="boardList"
+		resultType="com.co.kr.domain.BoardListDomain">
+		SELECT bd_seq, mb_id, bd_title, bd_content, bd_create_at,
+		bd_update_at
+		FROM login_test.board order by bd_update_at desc
+	</select>
 	<!-- content -->
 	<select id="boardSelectOne"
 		resultType="com.co.kr.domain.BoardListDomain" parameterType="map">
-		SELECT bd_seq, mb_id, bd_title, bd_content, bd_create_at, bd_update_at
-		FROM login_test.board where bd_seq = #{bdSeq}
+		SELECT
+		bd_seq, mb_id, bd_title, bd_content, bd_create_at, bd_update_at
+		FROM
+		login_test.board where bd_seq = #{bdSeq}
 	</select>
 
 	<!-- file -->
 	<select id="boardSelectOneFile"
 		resultType="com.co.kr.domain.BoardFileDomain" parameterType="map">
-		SELECT bd_seq, mb_id, up_original_file_name, up_new_file_name, up_file_path,
+		SELECT
+		bd_seq, mb_id, up_original_file_name, up_new_file_name, up_file_path,
 		up_file_size
-		FROM login_test.view_board where bd_seq = #{bdSeq}
+		FROM login_test.files where bd_seq = #{bdSeq}
 	</select>
 
-	<!--select all -->
-	<select id="boardList"
-		resultType="com.co.kr.domain.BoardListDomain">
-		SELECT bd_seq, mb_id, bd_title, bd_content, bd_create_at, bd_update_at
-		FROM login_test.board order by bd_update_at desc
-	</select>
+
 
 	<!-- content insert -->
 	<insert id="contentUpload"
 		parameterType="com.co.kr.domain.BoardContentDomain"
 		useGeneratedKeys="true" keyProperty="bdSeq" keyColumn="bd_seq">
 
-		INSERT INTO login_test.board (
+		INSERT INTO
+		login_test.board (
 		mb_id,
 		bd_title,
 		bd_content
@@ -89,12 +95,14 @@
 
 	<!-- Content delete -->
 	<delete id="bdContentRemove" parameterType="hashMap">
-		DELETE FROM login_test.board WHERE bd_seq=#{bdSeq}
+		DELETE FROM
+		login_test.board WHERE bd_seq=#{bdSeq}
 	</delete>
 	<!-- file delete -->
 	<delete id="bdFileRemove"
 		parameterType="com.co.kr.domain.BoardFileDomain">
-		DELETE FROM login_test.files WHERE up_new_file_name = #{upNewFileName}
+		DELETE FROM login_test.files WHERE up_new_file_name =
+		#{upNewFileName}
 	</delete>
 
 

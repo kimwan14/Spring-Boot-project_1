@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public enum Table {
 
-	MEMBER("member"), FILES("files"), BOARD("board"), QABOARD("qaboard");
+	MEMBER("member"), FILES("files"), BOARD("board"), MBTIBOARD("mbtiboard");
 
 	private String table;
 

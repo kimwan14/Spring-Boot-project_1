@@ -165,7 +165,7 @@ public class UserController {
 	public ModelAndView mbListCall(HttpServletRequest request) { // 클릭페이지 널이면
 		ModelAndView mav = new ModelAndView();
 		// 페이지네이션 쿼리 참고
-		// SELECT * FROM jsp.member order by mb_update_at limit 1, 5; {offset}{limit}
+		// SELECT * FROM login_test.member order by mb_update_at limit 1, 5; {offset}{limit}
 
 		// 전체 갯수
 		int totalcount = userService.mbGetAll();
@@ -273,7 +273,7 @@ public class UserController {
 
 	// 어드민의 멤버추가 & 회원가입
 	@PostMapping("create")
-	public ModelAndView create(LoginVO loginVO, HttpServletRequest request, HttpServletResponse response)
+	public ModelAndView mbcreate(LoginVO loginVO, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 
 		ModelAndView mav = new ModelAndView();

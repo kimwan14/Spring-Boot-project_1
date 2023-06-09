@@ -18,7 +18,7 @@
 		<!-- Header -->
 		<header id="header">
 			<h1>
-				<a href="index.html">Alpha</a> by HTML5 UP
+				<a href="index.html">메인화면</a>
 			</h1>
 			<nav id="nav">
 				<ul>
@@ -41,8 +41,8 @@
 			</header>
 			<section class="box">
 				<div class="userInfo" th:if=${session.id}>
-					<span th:text="${session.id}"></span><span> 님 / </span> <span
-						th:text="${session.mbLevel}"></span><span> 레벨</span>
+					<span  style="color: #0099a4" th:text="${session.id}"></span><span> 님 / </span> <span
+						th:text="${session.mbLevel}"  style="color: #0099a4"></span><span> 레벨</span>
 					<button type="button" class="button special small">
 						<a th:href="@{logout}" style="color: #fff">로그아웃</a>
 					</button>
@@ -55,15 +55,15 @@
 							<colgroup>
 								<col style="width: 10%" />
 								<col style="width: 40%" />
-								<col style="width: 10%" />
-								<col style="width: 40%" />
+								<col style="width: 15%" />
+								<col style="width: 35%" />
 							</colgroup>
 							<tbody>
 								<tr>
-									<th class="critical"><a href="#" class="tip">ID<span>아이디</span></a></th>
+									<th class="critical"><a href="#" class="tip"><span>아이디</span></a></th>
 									<td><input type="text" name="id" placeholder="id"
 										th:value=${item.mbId} th:readonly="true" /></td>
-									<th class="critical"><a href="#" class="tip">PW<span>패스워드</span></a></th>
+									<th class="critical"><a href="#" class="tip"><span>패스워드</span></a></th>
 									<td><input type="text" name="pw" placeholder="password"
 										th:value=${item.mbPw} required /></td>
 									<td><input type="hidden" name="admin" value="admin"

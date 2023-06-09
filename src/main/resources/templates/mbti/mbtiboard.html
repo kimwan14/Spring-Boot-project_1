@@ -12,6 +12,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="assets/css/main.css" />
+
 </head>
 <body class="is-preload">
 	<div id="page-wrapper">
@@ -42,8 +43,8 @@
 			</header>
 			<section class="box">
 				<div class="userInfo" th:if=${session.id}>
-					<span th:text="${session.id}"></span><span> 님 / </span> <span
-						th:text="${session.mbLevel}"></span><span> 레벨</span>
+					<span  style="color: #0099a4" th:text="${session.id}"></span><span> 님 / </span> <span
+						th:text="${session.mbLevel}"  style="color: #0099a4"></span><span> 레벨</span>
 					<button type="button" class="button special small">
 						<a th:href="@{test1}" style="color: #fff">로그아웃</a>
 					</button>

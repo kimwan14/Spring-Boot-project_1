@@ -108,7 +108,7 @@ public class UserController {
 
 		if (dupleCheck == 0) {
 			String alertText = "없는 아이디이거나 패스워드가 잘못되었습니다. 가입해주세요";
-			String redirectPath = "/main/signin/signin.html";
+			String redirectPath = "http://localhost:8082/main.do/signin";
 			CommonUtils.redirect(alertText, redirectPath, response);
 			return mav;
 		}

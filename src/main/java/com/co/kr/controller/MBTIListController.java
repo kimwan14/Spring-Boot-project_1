@@ -190,7 +190,7 @@ public class MBTIListController {
 		mav.addObject("detail2", mbtiListDomain);
 		mav.addObject("mbti_files", mbtifilelist);
 		// 삭제시 사용할 용도
-		session.setAttribute("files", mbtifilelist);
+		session.setAttribute("mbti_files", mbtifilelist);
 
 		return mav;
 
